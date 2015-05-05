@@ -25,9 +25,9 @@ public class TwitterFlowTopic extends TwitterFlowCommon {
 	final static String TWITTER_TOPIC_EXCHANGE = "twitter_topic";
 	final static String TWITTER_TOPIC_A_QUEUE_NAME = "twitter_topic_queue";
 	final static String TWITTER_TOPIC_PATTERN = "twitter_topic.*";
-	final static String TWITTER_TOPIC_A_ROUTING_KEY_VALUE = "twitter_topic.in";
-	final static String DYNAMIC_ROUTING_KEY_VALUE = "{T(java.lang.Math).random() < 0.5 ? '"
-			+ TWITTER_TOPIC_A_ROUTING_KEY_VALUE + "' : 'dummy'}";
+	final static String TWITTER_TOPIC_A_ROUTING_KEY_VALUE = "'twitter_topic.in'";
+	final static String DYNAMIC_ROUTING_KEY_VALUE = "{T(java.lang.Math).random() < 0.5 ? "
+			+ TWITTER_TOPIC_A_ROUTING_KEY_VALUE + " : 'dummy'}";
 
 	@Autowired
 	RabbitTemplate rabbitTemplate;
