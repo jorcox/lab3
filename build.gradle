@@ -1,25 +1,10 @@
-buildscript {
-    ext {
-        springBootVersion = '1.2.1.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'eclipse-wtp'
+    id 'java'
+    id 'idea'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'idea'
-apply plugin: 'spring-boot' 
-apply plugin: 'war'
-
-war {
-    baseName 'lab0-final'
-    version = '2015.1.23'
-}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -39,16 +24,17 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration")
     compile("org.springframework.boot:spring-boot-starter-amqp")
     compile("org.springframework:spring-messaging")
-    compile("org.springframework.integration:spring-integration-java-dsl:1.0.1.RELEASE")
+    compile("org.springframework.integration:spring-integration-java-dsl")
     compile("org.springframework.integration:spring-integration-amqp")
-    compile("com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2")
-    compile("org.webjars:jquery:2.1.3")
-    compile("org.webjars:bootstrap:3.3.1")
-    compile("org.webjars:mustachejs:0.8.2")
-    compile("org.webjars:stomp-websocket:2.3.1-1")
-    compile("org.webjars:sockjs-client:0.3.4-1")
-    compile("commons-beanutils:commons-beanutils:1.9.2")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:${google_concurrentlinkedhashmap_version}")
+    compile("org.webjars:jquery:${jquery_version}")
+    compile("org.webjars:bootstrap:${bootstrap_version}")
+    compile("org.webjars:mustachejs:${mustachejs_version}")
+    compile("org.webjars:stomp-websocket:${stomp_websocket_version}")
+    compile("org.webjars:sockjs-client:${sockjs_client_version}")
+    compile("commons-beanutils:commons-beanutils:${commons_beanutisl_version}")
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
