@@ -17,6 +17,9 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.amqp.Amqp;
 import org.springframework.integration.dsl.channel.MessageChannels;
+import org.springframework.integration.transformer.GenericTransformer;
+
+import es.unizar.tmdad.lab3.domain.TargetedTweet;
 
 @Configuration
 @Profile("direct")
@@ -64,10 +67,25 @@ public class TwitterFlowDirect extends TwitterFlowCommon {
 				.exchangeName(TWITTER_DIRECT_EXCHANGE)
 				.routingKey(TWITTER_DIRECT_A_ROUTING_KEY).get();
 	}
+	
+	private GenericTransformer<TargetedTweet, TargetedTweet> highlight() {
+		return t -> {			
+			//String tag = t.getFirstTarget();
+			String text = t.getTweet().getUnmodifiedText();
+			System.out.println("PRE --> " + text);
+			//t.getTweet().setUnmodifiedText(
+			//		text.replaceAll(tag, "<b>" + tag + "</b>"));
+			return t;
+		};
+	}
 
 	@Bean
 	public IntegrationFlow sendTweetToRabbitMQ() {
+		/*return IntegrationFlows.from(requestChannelTwitter())
+				.transform(highlight())
+				.handle("streamSendingService", "sendTweet").get();*/
 		return IntegrationFlows.from(requestChannelTwitter())
+				//.transform(highlight())
 				.handle(amqpOutbound()).get();
 	}
 

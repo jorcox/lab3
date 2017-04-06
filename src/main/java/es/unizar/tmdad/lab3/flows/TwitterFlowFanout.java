@@ -17,6 +17,8 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.amqp.Amqp;
 import org.springframework.integration.dsl.channel.MessageChannels;
+import org.springframework.integration.transformer.GenericTransformer;
+import org.springframework.social.twitter.api.Tweet;
 
 @Configuration
 @Profile("fanout")
@@ -66,8 +68,21 @@ public class TwitterFlowFanout extends TwitterFlowCommon {
 	@Bean
 	public IntegrationFlow sendTweetToRabbitMQ() {
 		return IntegrationFlows.from(requestChannelTwitter())
+				//.transform(highlight())
 				.handle(amqpOutbound()).get();
 	}
+	
+	private GenericTransformer<Tweet, Tweet> highlight() {
+		return t -> {			
+			//String tag = t.getFirstTarget();
+			String text = t.getUnmodifiedText();
+			System.out.println("PRE --> " + text);
+			//t.getTweet().setUnmodifiedText(
+			//		text.replaceAll(tag, "<b>" + tag + "</b>"));
+			return t;
+		};
+	}
+	
 
 	// Flujo #2
 	//

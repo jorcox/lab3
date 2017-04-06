@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.PostConstruct;
 
@@ -13,6 +16,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.social.twitter.api.FilterStreamParameters;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.social.twitter.api.StreamListener;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
@@ -30,7 +34,7 @@ public class StreamSendingService {
 
 	@Autowired
 	private TwitterTemplate twitterTemplate;
-
+	
 	private Stream stream;
 
 	@PostConstruct
@@ -44,7 +48,7 @@ public class StreamSendingService {
 	public Stream getStream() {
 		return stream;
 	}
-
+	
 	public void sendTweet(TargetedTweet targeted) {
 		Map<String, Object> map = new HashMap<>();
 		map.put(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON);

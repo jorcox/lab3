@@ -33,9 +33,10 @@ abstract public class TwitterFlowCommon {
 	abstract protected AbstractMessageChannel requestChannelRabbitMQ();
 
 	private GenericTransformer<TargetedTweet, TargetedTweet> highlight() {
-		return t -> {
+		return t -> {			
 			String tag = t.getFirstTarget();
 			String text = t.getTweet().getUnmodifiedText();
+			System.out.println("POST --> " + text);
 			t.getTweet().setUnmodifiedText(
 					text.replaceAll(tag, "<b>" + tag + "</b>"));
 			return t;
